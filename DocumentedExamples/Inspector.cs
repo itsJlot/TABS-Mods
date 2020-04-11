@@ -10,6 +10,10 @@ internal class Inspector
 {
 	public static void Start()
 	{
+		Inspector.componentChoice = new List<CustomGUI>();
+		Inspector.gameObjects = new List<CustomGUI>[8];
+		Inspector.components = new List<CustomGUI>();
+		Inspector.maxDepth = 8;
 		for (int i = 0; i < Inspector.gameObjects.Length; i++)
 		{
 			Inspector.gameObjects[i] = new List<CustomGUI>();
@@ -103,18 +107,15 @@ internal class Inspector
 
 	private static void Remove()
 	{
-	}
-
-	public Inspector()
-	{
-	}
-
-	static Inspector()
-	{
-		Inspector.componentChoice = new List<CustomGUI>();
-		Inspector.gameObjects = new List<CustomGUI>[8];
-		Inspector.components = new List<CustomGUI>();
-		Inspector.maxDepth = 8;
+        
+		Inspector.RemoveAllFromGUI(Inspector.componentChoice);
+		Inspector.RemoveAllFromGUI(Inspector.componentFields);
+		Inspector.RemoveAllFromGUI(Inspector.components);
+		foreach(List<CustomGUI> layer in Inspector.gameObjects)
+		{
+		    Inspector.RemoveAllFromGUI(layer);
+		}
+    
 	}
 
 	public static int CountParents(GameObject go)
@@ -523,17 +524,7 @@ internal class Inspector
 		IL_F6E:
 		return new Tuple<List<CustomGUI>, int>(i, height);
 	}
-    static void Remove()
-    {
-        
-		Inspector.RemoveAllFromGUI(Inspector.componentChoice);
-		Inspector.RemoveAllFromGUI(Inspector.componentFields);
-        Inspector.RemoveAllFromGUI(Inspector.components);
-        foreach(List<CustomGUI> layer in Inspector.gameObjects)
-        {
-            Inspector.RemoveAllFromGUI(layer);
-        }
-    }
+    
 
 	private static int iteration;
 
