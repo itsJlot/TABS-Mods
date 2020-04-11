@@ -523,6 +523,17 @@ internal class Inspector
 		IL_F6E:
 		return new Tuple<List<CustomGUI>, int>(i, height);
 	}
+    static void Remove()
+    {
+        
+		Inspector.RemoveAllFromGUI(Inspector.componentChoice);
+		Inspector.RemoveAllFromGUI(Inspector.componentFields);
+        Inspector.RemoveAllFromGUI(Inspector.components);
+        foreach(List<CustomGUI> layer in Inspector.gameObjects)
+        {
+            Inspector.RemoveAllFromGUI(layer);
+        }
+    }
 
 	private static int iteration;
 
