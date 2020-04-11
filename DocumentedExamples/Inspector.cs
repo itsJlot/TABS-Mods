@@ -19,7 +19,7 @@ internal class Inspector
 			Inspector.gameObjects[i] = new List<CustomGUI>();
 		}
 		Inspector.CreateList(null);
-		Button button4 = new Button(new Rect(0f, 0.18f, 0.1f, 0.02f), "Refresh List", JMTKGUI.GUIElement.Button, delegate()
+		refreshList = new Button(new Rect(0f, 0.18f, 0.1f, 0.02f), "Refresh List", JMTKGUI.GUIElement.Button, delegate()
 		{
 			try
 			{
@@ -30,7 +30,7 @@ internal class Inspector
 				Debug.Log("There is an issue");
 			}
 		});
-		JMTK.instance.guiElements.Add(button4);
+		JMTK.instance.guiElements.Add(refreshList);
 	}
 
 	public static void CreateList(GameObject parentObject = null)
@@ -105,9 +105,9 @@ internal class Inspector
 	{
 	}
 
-	private static void Remove()
+	public static void Remove()
 	{
-        
+        Inspector.componentChoice.Add(refreshList);
 		Inspector.RemoveAllFromGUI(Inspector.componentChoice);
 		Inspector.RemoveAllFromGUI(Inspector.componentFields);
 		Inspector.RemoveAllFromGUI(Inspector.components);
@@ -499,16 +499,16 @@ internal class Inspector
 					}));
 					height = 1;
 				}
-				else if (typeOfFieldContent.Name == "Boolean" && typeOfFieldContent.Name == "disable")
+				else if (typeOfFieldContent.Name == "Boolean")
 				{
 					height = 1;
 					try
 					{
-						Toggle boolIn = new Toggle(r.Item2, field.GetValue(o).ToString(), JMTKGUI.GUIElement.Toggle, delegate()
+						Toggle boolIn = new Toggle(r.Item2, (bool)field.GetValue(o), JMTKGUI.GUIElement.Toggle, delegate()
 						{
 						});
 						i.Add(boolIn);
-						i.Add(new Toggle(r.Item1, field.Name, JMTKGUI.GUIElement.Button, delegate()
+						i.Add(new Button(r.Item1, field.Name, JMTKGUI.GUIElement.Button, delegate()
 						{
 							field.SetValue(o, boolIn.toggleState);
 						}));
@@ -535,7 +535,7 @@ internal class Inspector
 	private static List<CustomGUI> components;
 
 	private static List<CustomGUI> componentChoice;
-
+	private static CustomGUI refreshList;
 	public static float unitHeight = 0.02f;
 
 	private static List<CustomGUI> componentFields = new List<CustomGUI>();
