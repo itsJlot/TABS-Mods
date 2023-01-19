@@ -2,7 +2,6 @@
 
 // Using statements to import namespaces
 using UnityEngine;
-using Landfall.TABS;
 // Any class name works here! Modding Toolkit will search out all methods in the file
 class RotateCamera
 {

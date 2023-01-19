@@ -1,5 +1,4 @@
 using UnityEngine;
-using Landfall.TABS;
 // Simple example mod, sets a variable and resets it when removed
 class DevMode
 {
